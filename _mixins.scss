@@ -1,0 +1,80 @@
+/* COMPASS SPECIFIC
+=================================================================== */
+@import "compass";
+
+/* Box Sizing */
+// @mixin box-sizing($mode: border-box){
+// 	box-sizing:$mode;
+// 	-moz-box-sizing:$mode; /* Firefox */
+// 	-webkit-box-sizing:$mode; /* Safari */
+// }
+
+
+@mixin clearfixe()
+{
+ 	zoom: 1;
+	&:before, &:after { content: ""; display: table; }
+	&:after { clear: both; }
+}
+
+.clearfix {
+ 	@include clearfixe;
+}
+
+
+@mixin col($nbCol:3,$gutter:20px, $width:$max-width){
+	// $totalWidth:$width; 
+	$nth:#{$nbCol}+"n+1";
+	
+	$new_width: (($width - ($gutter * ($nbCol - 1))) / $nbCol);
+	width:percentage($new_width/$width);
+	
+
+	margin-left: $gutter;
+	margin-bottom: $gutter;
+	float:left;
+	&:first-child{
+		margin-left: 0px;
+	}
+	&:nth-child(#{$nth}){
+		margin-left:0px;
+		clear:left;
+	}
+
+	// &:before
+	// {
+	// 	content:$width;
+	// }
+}
+
+
+@mixin inline_block(){
+	display: inline-block;
+	
+	.lt-ie8 &
+	{
+		zoom:1;
+		*display:inline;
+	}
+
+}
+
+@mixin hide-text()
+{
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+@mixin gradient($directions,$start,$end)
+{
+	background-color: $start;
+	@include background(linear-gradient($directions,$start,$end));
+	@include filter-gradient($start, $end, vertical);
+	
+	.ie9 &
+	{
+		filter:none;
+	}
+}
+
